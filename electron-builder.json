@@ -1,0 +1,16 @@
+{
+    "appId": "com.electron.image_resizer",
+    "directories": {
+        "output": "dist"
+    },
+    "mac": {
+        "category": "public.app-category.utilities",
+        "target": "dmg"
+    },
+    "win": {
+        "target": "nsis"
+    },
+    "linux": {
+        "target": "AppImage"
+    }
+}
