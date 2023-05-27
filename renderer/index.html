@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Image Resizer</title>
+        <title>Image Watermarker</title>
     </head>
     <body>
         <center>
-            <h1>Image Resizer</h1>
-            <p>Choose your file</p>
-            <input type="file" name="file" id="file">
+            <h1>Image Watermarker</h1>
+            <span>Choose your image: </span>
+            <input type="file" name="originalImage" id="originalImage">
             <br>
-            <button type="button">Resize</button>
+            <span>Choose the watermark image: </span>
+            <input type="file" name="watermarkImage" id="watermarkImage">
+            <button type="button">Add Watermark</button>
             <p id="message"></p>
         </center>
         <script src="script.js"></script>
