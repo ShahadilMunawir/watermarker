@@ -1,13 +1,10 @@
 {
-  "name": "image_resizer",
+  "name": "image_watermarker",
   "author": "Shahadil Munawir",
   "version": "1.0.0",
-  "dependencies": {
-  },
   "devDependencies": {
-    "electron-builder": "^23.6.0",
-    "child-process": "^1.0.2",
-    "electron": "^24.4.0"
+    "electron": "^24.4.0",
+    "electron-builder": "^23.6.0"
   },
   "main": "main.js",
   "scripts": {
