@@ -1,5 +1,6 @@
 {
-    "appId": "com.electron.image_resizer",
+    "appId": "com.electron.image_watermarker",
+    "extraResources": ["accessories/*"],
     "directories": {
         "output": "dist"
     },
