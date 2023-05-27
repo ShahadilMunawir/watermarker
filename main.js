@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain} = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { exec } = require("child_process");
 const path = require("path");
 
@@ -11,33 +11,28 @@ function createWindow() {
     });
 
     win.loadFile("renderer/index.html");
-    win.webContents.openDevTools();
-    const appPath = app.isPackaged ? path.join(path.dirname(app.getPath("Exe")), "renderer") : path.join(__dirname, "renderer");
+
+    const appPath = app.getAppPath();
     const pythonInterpreter = app.isPackaged ? '/usr/bin/python3' : 'python3';
-    const pythonScriptPath = path.join(appPath, "watermarker.py");
-    console.log(pythonScriptPath);
+    let pythonScriptPath;
 
-    exec(`cd ${appPath} && pwd`, (err, stdout, stderr) => {
-        console.log(stdout);
-    });
+    if (app.isPackaged) {
+        pythonScriptPath = path.join(process.resourcesPath, "accessories", "watermarker.py");
+    } else {
+        pythonScriptPath = path.join(appPath, "accessories", "watermarker.py");
+    };
 
-    ipcMain.on("imageFileName", (event, imageFileName) => {
-        ipcMain.on("imagePath", (event, imagePath) => {
-            win.webContents.send("imageSave", "Started");
-            exec(`${pythonInterpreter} ${pythonScriptPath} ${imagePath} ${imageFileName}`, (err, stdout, stderr) => {
-                if (err) {
-                    console.log(err);
-                } else if (stdout) {
-                    console.log(stdout);
-                } else {
-                    console.log(stderr);
-                }
-                win.webContents.send("status", "File saved");
-                console.log("image saved");
-            });
+    ipcMain.on("imageData", (event, originalImagePath, watermarkImagePath) => {
+        exec(`${pythonInterpreter} ${pythonScriptPath} ${originalImagePath} ${watermarkImagePath}`, (err, stdout, stderr) => {
+            if (err) {
+                console.log(`err: ${err}`);
+            } else if (stdout) {
+                console.log(`stdout: ${stdout}`);
+            } else {
+                console.log(`stderr: ${stderr}`);
+            }
         });
-    })
-
+    });
 
     win.on("closed", () => {
         win = null;
